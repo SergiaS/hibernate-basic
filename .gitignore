@@ -8,3 +8,8 @@ target
 *.iml
 log
 *.patch
+/gradle/
+.gradle*
+/gradlew.bat
+/gradlew
+src/
