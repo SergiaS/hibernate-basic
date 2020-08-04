@@ -4,7 +4,8 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:mysql://localhost:3306/hibernate-basic?useSSL=false</property>
+
+        <property name="connection.url">jdbc:mysql://localhost:3306/hibernate-basic?useSSL=false&amp;serverTimezone=UTC</property>
         <property name="connection.username">root</property>
         <property name="connection.password">root</property>
 
@@ -16,6 +17,9 @@
         <property name="default_schema">hibernate-basic</property>
 
         <property name="hibernate.current_session_context_class">thread</property>
+
+        <mapping class="ru.javabegin.training.hibernate.entity.Author"/>
+        <mapping class="ru.javabegin.training.hibernate.entity.Book"/>
 
     </session-factory>
 </hibernate-configuration>
