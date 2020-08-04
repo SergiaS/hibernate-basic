@@ -51,7 +51,22 @@ public class AuthorHelper {
 
 	}
 
-	public Author getAuthor(String name){
-		return null;
+	// добавляют нового автора в таблица Author
+	public Author addAuthor(Author author){
+
+		Session session = sessionFactory.openSession();
+
+		Author a1 = session.get(Author.class, 1L);
+		a1.setName("Elena");
+
+		session.beginTransaction();
+		session.save(author); // сгенерит ID и вставит в объект
+
+		session.getTransaction().commit();
+		session.close();
+
+		return author;
 	}
+
+	public Author getAuthor(String name) { return null; }
 }
