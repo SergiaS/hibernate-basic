@@ -16,6 +16,8 @@
 
         <property name="default_schema">hibernate-basic</property>
 
+<!--        <property name="hibernate.hbm2ddl.auto">create</property>-->
+
         <property name="hibernate.current_session_context_class">thread</property>
 
         <mapping class="ru.javabegin.training.hibernate.entity.Author"/>

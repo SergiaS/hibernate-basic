@@ -59,15 +59,20 @@ public class AuthorHelper {
 
 		session.beginTransaction();
 
-		for (int i = 1; i <= 200; i++) {
+//		for (int i = 1; i <= 200; i++) {
+//
+//			Author a = new Author("test_hw11_obj_" + i);
+//			if (i % 10 == 0) {
+//				session.flush();
+//			}
+//
+//			session.save(a);
+//		}
 
-			Author a = new Author("test_hw11_obj_" + i);
-			if (i % 10 == 0) {
-				session.flush();
-			}
 
-			session.save(a);
-		}
+
+		session.save(author);
+
 		session.close();
 
 		return author;
