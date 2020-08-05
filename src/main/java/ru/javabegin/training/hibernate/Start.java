@@ -15,7 +15,6 @@ public class Start {
 		//Session session = HibernateUtil.getSessionFactory().openSession();
 
 		Author author = new Author("тест3");
-
 		new AuthorHelper().addAuthor(author);
 
 		HibernateUtil.getSessionFactory().close(); // закрываем фабрику, иначе программа останется в "зависнутом состоянии"

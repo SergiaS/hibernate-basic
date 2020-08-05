@@ -55,14 +55,19 @@ public class AuthorHelper {
 	public Author addAuthor(Author author){
 
 		Session session = sessionFactory.openSession();
-
-		Author a1 = session.get(Author.class, 1L);
-		a1.setName("Elena");
+		session.getTransaction();
 
 		session.beginTransaction();
-		session.save(author); // сгенерит ID и вставит в объект
 
-		session.getTransaction().commit();
+		for (int i = 1; i <= 200; i++) {
+
+			Author a = new Author("test_hw11_obj_" + i);
+			if (i % 10 == 0) {
+				session.flush();
+			}
+
+			session.save(a);
+		}
 		session.close();
 
 		return author;
