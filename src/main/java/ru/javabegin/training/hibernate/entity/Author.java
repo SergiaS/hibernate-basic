@@ -12,7 +12,6 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@RequiredArgsConstructor
 @DynamicUpdate
 @DynamicInsert
 public class Author implements Serializable {
@@ -27,4 +26,12 @@ public class Author implements Serializable {
 	@Column(name = "second_name")
 	private String secondName;
 
+	public Author(long id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
+	public Author(String name) {
+		this.name = name;
+	}
 }

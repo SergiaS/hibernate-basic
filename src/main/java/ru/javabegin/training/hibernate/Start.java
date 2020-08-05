@@ -1,8 +1,5 @@
 package ru.javabegin.training.hibernate;
 
-import org.hibernate.Session;
-import ru.javabegin.training.hibernate.entity.Author;
-
 import org.jboss.logging.Logger;
 
 public class Start {
@@ -11,13 +8,7 @@ public class Start {
 
 	public static void main(String[] args) {
 
-		// здесь не нужно открывать сессию - осталось от старого кода
-		//Session session = HibernateUtil.getSessionFactory().openSession();
-
-		Author author = new Author("test12");
-		new AuthorHelper().addAuthor(author);
-
-		HibernateUtil.getSessionFactory().close(); // закрываем фабрику, иначе программа останется в "зависнутом состоянии"
+		new AuthorHelper().getAuthorList();
 
 	}
 }

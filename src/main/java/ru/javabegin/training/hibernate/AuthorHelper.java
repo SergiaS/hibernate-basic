@@ -8,6 +8,7 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Selection;
 import java.util.List;
 
 public class AuthorHelper {
@@ -36,6 +37,11 @@ public class AuthorHelper {
 
 		Root<Author> root = cq.from(Author.class);// первостепенный, корневой entity (в sql запросе - from)
 
+		Selection[] selection = {root.get("id"), root.get("name")};
+
+		// construct - сконструировать нам объект на основе полей selection
+		// в массиве указываем какие поля нам нужны
+		cq.select(cb.construct(Author.class, selection));
 		cq.select(root);// необязательный оператор, если просто нужно получить все значения
 
 
@@ -59,20 +65,13 @@ public class AuthorHelper {
 
 		session.beginTransaction();
 
-//		for (int i = 1; i <= 200; i++) {
-//
-//			Author a = new Author("test_hw11_obj_" + i);
-//			if (i % 10 == 0) {
-//				session.flush();
-//			}
-//
-//			session.save(a);
-//		}
-
-
-
-		session.save(author);
-
+		for (int i = 1; i <= 200; i++) {
+			Author a = new Author("test_hw11_obj_" + i);
+			a.setSecondName("sec_name_" + i);
+			if (i % 10 == 0) session.flush();
+			session.save(a);
+		}
+		session.getTransaction().commit();
 		session.close();
 
 		return author;
