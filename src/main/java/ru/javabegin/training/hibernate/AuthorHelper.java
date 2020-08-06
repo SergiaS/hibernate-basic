@@ -1,17 +1,17 @@
 package ru.javabegin.training.hibernate;
 
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import ru.javabegin.training.hibernate.entity.Author;
 
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Selection;
+import javax.persistence.criteria.*;
 import java.util.List;
 
+
 public class AuthorHelper {
+
 
 	private SessionFactory sessionFactory;
 
@@ -19,14 +19,10 @@ public class AuthorHelper {
 		sessionFactory = HibernateUtil.getSessionFactory();
 	}
 
-	public List<Author> getAuthorList(){
+	public List<Author> getAuthorList() {
 
 		// открыть сессию - для манипуляции с персист. объектами
 		Session session = sessionFactory.openSession();
-
-		session.get(Author.class, 1L); // получение объекта по id
-
-
 
 		// этап подготовки запроса
 
@@ -37,17 +33,18 @@ public class AuthorHelper {
 
 		Root<Author> root = cq.from(Author.class);// первостепенный, корневой entity (в sql запросе - from)
 
-		Selection[] selection = {root.get(Author_.id), root.get(Author_.name)};
+		Selection[] selection = {root.get("id"), root.get("name")}; // выборка полей, в классе Author должен быть конструктор с этими параметрами
 
-		// construct - сконструировать нам объект на основе полей selection
-		// в массиве указываем какие поля нам нужны
-		cq.select(cb.construct(Author.class, selection));
-		cq.select(root);// необязательный оператор, если просто нужно получить все значения
-
+//		ParameterExpression<String> nameParam = cb.parameter(String.class, "name");
+//
+//		cq.select(cb.construct(Author.class, selection))
+//				.where(cb.like(root.get(Author_.name), nameParam));
 
 
 		// этап выполнения запроса
 		Query query = session.createQuery(cq);
+		query.setParameter("name", "%имя%");
+
 
 		List<Author> authorList = query.getResultList();
 
@@ -58,24 +55,72 @@ public class AuthorHelper {
 	}
 
 	// добавляют нового автора в таблица Author
-	public Author addAuthor(Author author){
+	public Author addAuthor(Author author) {
 
 		Session session = sessionFactory.openSession();
-		session.getTransaction();
-
 		session.beginTransaction();
 
 		for (int i = 1; i <= 200; i++) {
-			Author a = new Author("test_hw11_obj_" + i);
-			a.setSecondName("sec_name_" + i);
-			if (i % 10 == 0) session.flush();
-			session.save(a);
+			Author a = new Author("name" + i);
+			a.setSecondName("sec_name" + i);
+			if (i % 20 == 0) {
+				session.flush();
+			}
+			session.save(a); // сгенерит ID и вставит в объект
 		}
+
 		session.getTransaction().commit();
+
 		session.close();
 
 		return author;
+
 	}
 
-	public Author getAuthor(String name) { return null; }
+	public void delete() {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		Author a = session.get(Author.class, 1L);
+
+		session.delete(a);
+
+		session.getTransaction().commit();
+
+		session.close();
+	}
+
+	public void deleteByCriteria() {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		CriteriaBuilder cb = session.getCriteriaBuilder();
+		CriteriaDelete<Author> criteriaDelete = cb.createCriteriaDelete(Author.class);
+		Root<Author> root = criteriaDelete.from(Author.class);
+
+		ParameterExpression<String> nameParam = cb.parameter(String.class, "name");
+		ParameterExpression<String> secondNameParam = cb.parameter(String.class, "secondName");
+
+		criteriaDelete.where(cb.or(
+				cb.and(
+						cb.like(root.get("name"), nameParam),
+						cb.like(root.get("secondName"), secondNameParam)
+				),
+				cb.equal(root.get("name"), "sec_name83")
+				)
+		);
+
+		// этап выполнения запроса
+		Query query = session.createQuery(criteriaDelete);
+		query.setParameter("name", "%2%");
+		query.setParameter("secondName", "%t%");
+
+		query.executeUpdate();
+
+//		session.getTransaction().commit();
+
+		session.close();
+	}
+
+
 }

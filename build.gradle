@@ -1,36 +1,34 @@
 plugins {
-    id "at.comm_unity.gradle.plugins.jpamodelgen" version "1.1.1"
+    id 'java'
+//    id "at.comm_unity.gradle.plugins.jpamodelgen" version "1.1.4"
 }
-
 
 group 'ru.javabegin.training.hibernate'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
-apply plugin: "at.comm_unity.gradle.plugins.jpamodelgen"
-
-
-sourceCompatibility = 1.8
+//apply plugin: "at.comm_unity.gradle.plugins.jpamodelgen"
 
 repositories {
     mavenCentral()
 }
 
+
 dependencies {
 
-    compile('org.hibernate:hibernate-core:5.2.2.Final')
-    compile('mysql:mysql-connector-java:6.0.3')
+    compile('org.hibernate:hibernate-core:5.4.19.Final')
+    compile('mysql:mysql-connector-java:8.0.21')
     compile('org.projectlombok:lombok:+')
+    annotationProcessor('org.projectlombok:lombok:+')
+
+//    annotationProcessor('org.hibernate:hibernate-jpamodelgen:+')
 
     compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '+'
 
-
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
-
-
-jpaModelgen {
-    library = "org.hibernate:hibernate-jpamodelgen:+"
-    jpaModelgenSourcesDir = "src/main/resources/"
-}
+//jpaModelgen {
+//    library "org.hibernate:hibernate-jpamodelgen:+"
+//    jpaModelgenSourcesDir "src/main/resources/"
+//}

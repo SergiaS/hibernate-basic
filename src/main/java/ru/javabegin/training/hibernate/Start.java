@@ -8,9 +8,11 @@ public class Start {
 
 	public static void main(String[] args) {
 
-		new AuthorHelper().getAuthorList();
+		new AuthorHelper().deleteByCriteria();
 
-		HibernateUtil.getSessionFactory().close(); // закрываем фабрику, иначе программа останется в "зависнутом состоянии"
+
+
+//		HibernateUtil.getSessionFactory().close(); // закрываем фабрику, иначе программа останется в "зависнутом состоянии"
 
 	}
 }
