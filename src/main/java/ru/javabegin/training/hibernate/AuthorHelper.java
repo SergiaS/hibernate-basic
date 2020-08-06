@@ -3,6 +3,7 @@ package ru.javabegin.training.hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import ru.javabegin.training.hibernate.entity.Author;
+import ru.javabegin.training.hibernate.entity.Author_;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -37,7 +38,7 @@ public class AuthorHelper {
 
 		Root<Author> root = cq.from(Author.class);// первостепенный, корневой entity (в sql запросе - from)
 
-		Selection[] selection = {root.get("id"), root.get("name")};
+		Selection[] selection = {root.get(Author_.id), root.get(Author_.name)};
 
 		// construct - сконструировать нам объект на основе полей selection
 		// в массиве указываем какие поля нам нужны
