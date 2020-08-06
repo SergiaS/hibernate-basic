@@ -10,6 +10,7 @@ public class Start {
 
 		new AuthorHelper().getAuthorList();
 
+		HibernateUtil.getSessionFactory().close(); // закрываем фабрику, иначе программа останется в "зависнутом состоянии"
 
 	}
 }

@@ -12,9 +12,5 @@ public abstract class Author_ {
 	public static volatile SingularAttribute<Author, Long> id;
 	public static volatile SingularAttribute<Author, String> secondName;
 
-	public static final String NAME = "name";
-	public static final String ID = "id";
-	public static final String SECOND_NAME = "secondName";
-
 }
 

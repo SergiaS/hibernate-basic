@@ -3,7 +3,6 @@ package ru.javabegin.training.hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import ru.javabegin.training.hibernate.entity.Author;
-import ru.javabegin.training.hibernate.entity.Author_;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;

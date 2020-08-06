@@ -12,9 +12,5 @@ public abstract class Book_ {
 	public static volatile SingularAttribute<Book, Long> id;
 	public static volatile SingularAttribute<Book, Long> author_id;
 
-	public static final String NAME = "name";
-	public static final String ID = "id";
-	public static final String AUTHOR_ID = "author_id";
-
 }
 

@@ -2,11 +2,13 @@ plugins {
     id "at.comm_unity.gradle.plugins.jpamodelgen" version "1.1.1"
 }
 
+
 group 'ru.javabegin.training.hibernate'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: "at.comm_unity.gradle.plugins.jpamodelgen"
+
 
 sourceCompatibility = 1.8
 
@@ -25,6 +27,7 @@ dependencies {
 
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
+
 
 
 jpaModelgen {
