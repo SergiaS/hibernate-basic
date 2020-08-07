@@ -15,6 +15,8 @@ public class Start {
 //		new AuthorHelper().getAuthor(202L);
 
 		List<Book> bookList = new BookHelper().getBookList();
+//		List<Author> authorList = new AuthorHelper().getAuthorList();
+//		new AuthorHelper().getAuthor(1L);
 
 	}
 }

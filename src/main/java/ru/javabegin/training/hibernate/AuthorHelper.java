@@ -33,10 +33,8 @@ public class AuthorHelper {
 
 		Root<Author> root = cq.from(Author.class);// первостепенный, корневой entity (в sql запросе - from)
 
-		Selection[] selection = {root.get("id"), root.get("name")}; // выборка полей, в классе Author должен быть конструктор с этими параметрами
-
+//		Selection[] selection = {root.get("id"), root.get("name")}; // выборка полей, в классе Author должен быть конструктор с этими параметрами
 //		ParameterExpression<String> nameParam = cb.parameter(String.class, "name");
-//
 //		cq.select(cb.construct(Author.class, selection))
 //				.where(cb.like(root.get(Author_.name), nameParam));
 
@@ -44,7 +42,6 @@ public class AuthorHelper {
 		// этап выполнения запроса
 		Query query = session.createQuery(cq);
 		query.setParameter("name", "%имя%");
-
 
 		List<Author> authorList = query.getResultList();
 
