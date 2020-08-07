@@ -123,4 +123,37 @@ public class AuthorHelper {
 	}
 
 
+	// HW of lesson 17
+	public void updateIt() {
+
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		CriteriaBuilder cb = session.getCriteriaBuilder();// не использовать session.createCriteria, т.к. deprecated
+
+		CriteriaUpdate<Author> criteriaUpdate = cb.createCriteriaUpdate(Author.class);
+
+		Root<Author> root = criteriaUpdate.from(Author.class);// первостепенный, корневой entity (в sql запросе - from)
+
+		ParameterExpression<String> nameParam = cb.parameter(String.class, "name");
+
+		Expression<Integer> length = cb.length(root.get("secondName"));
+
+		criteriaUpdate.set(root.get("name"), java.util.Optional.ofNullable(nameParam))
+				.where(cb.equal(length, 9));
+
+
+		// этап выполнения запроса
+		Query query = session.createQuery(criteriaUpdate);
+		query.setParameter("name", "1111");
+
+		query.executeUpdate();// вместо возврата результата - используется метод обновления
+
+
+		session.getTransaction().commit();
+
+		session.close();
+	}
+
+
 }
