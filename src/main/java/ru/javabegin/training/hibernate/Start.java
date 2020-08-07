@@ -8,11 +8,11 @@ public class Start {
 
 	public static void main(String[] args) {
 
-		new AuthorHelper().deleteByCriteria();
 
+//		new BookHelper().getBookList();
 
+		new AuthorHelper().getAuthor(202L);
 
-//		HibernateUtil.getSessionFactory().close(); // закрываем фабрику, иначе программа останется в "зависнутом состоянии"
 
 	}
 }
