@@ -55,27 +55,27 @@ public class AuthorHelper {
 	}
 
 	// добавляют нового автора в таблица Author
-	public Author addAuthor(Author author) {
-
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-
-		for (int i = 1; i <= 200; i++) {
-			Author a = new Author("name" + i);
-			a.setSecondName("sec_name" + i);
-			if (i % 20 == 0) {
-				session.flush();
-			}
-			session.save(a); // сгенерит ID и вставит в объект
-		}
-
-		session.getTransaction().commit();
-
-		session.close();
-
-		return author;
-
-	}
+//	public Author addAuthor(Author author) {
+//
+//		Session session = sessionFactory.openSession();
+//		session.beginTransaction();
+//
+//		for (int i = 1; i <= 200; i++) {
+//			Author a = new Author("name" + i);
+//			a.setSecondName("sec_name" + i);
+//			if (i % 20 == 0) {
+//				session.flush();
+//			}
+//			session.save(a); // сгенерит ID и вставит в объект
+//		}
+//
+//		session.getTransaction().commit();
+//
+//		session.close();
+//
+//		return author;
+//
+//	}
 
 	public void delete() {
 		Session session = sessionFactory.openSession();

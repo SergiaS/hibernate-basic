@@ -1,25 +1,20 @@
 package ru.javabegin.training.hibernate.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Getter
 @Setter
-@DynamicUpdate
-@DynamicInsert
-public class Book implements Serializable {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	private String name;
+@AllArgsConstructor
+@NoArgsConstructor
+public class Book extends BaseEntity {
 
 	@ManyToOne
 	@JoinColumn

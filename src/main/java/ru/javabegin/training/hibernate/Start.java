@@ -1,6 +1,9 @@
 package ru.javabegin.training.hibernate;
 
 import org.jboss.logging.Logger;
+import ru.javabegin.training.hibernate.entity.Book;
+
+import java.util.List;
 
 public class Start {
 
@@ -9,10 +12,9 @@ public class Start {
 	public static void main(String[] args) {
 
 
-//		new BookHelper().getBookList();
+//		new AuthorHelper().getAuthor(202L);
 
-		new AuthorHelper().getAuthor(202L);
-
+		List<Book> bookList = new BookHelper().getBookList();
 
 	}
 }

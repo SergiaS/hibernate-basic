@@ -1,45 +1,27 @@
 package ru.javabegin.training.hibernate.entity;
 
-import lombok.*;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@DynamicUpdate
-@DynamicInsert
-@EqualsAndHashCode(of="id")
-@ToString(of = "name", includeFieldNames = false)
-public class Author implements Serializable{
-
-	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY) // генерация ID через Autoincrement в MySQL
-	private long id;
-
-	private String name;
+public class Author extends BaseEntity{
 
 	@Column(name = "second_name")
 	private String secondName;
 
-	@OneToMany(fetch = FetchType.EAGER, targetEntity = Book.class, mappedBy = "author")
+	@OneToMany(targetEntity = Book.class, mappedBy = "author")
 	private List<Book> books = new ArrayList<>();
-
-	public Author(long id, String name){
-		this.id = id;
-		this.name = name;
-	}
-
-	public Author(String name){
-		this.name = name;
-	}
-
-
 
 }
