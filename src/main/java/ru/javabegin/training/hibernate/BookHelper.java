@@ -3,6 +3,7 @@ package ru.javabegin.training.hibernate;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.stat.Statistics;
 import ru.javabegin.training.hibernate.entity.Book;
 
 import javax.persistence.Query;
@@ -21,6 +22,10 @@ public class BookHelper {
 	}
 
 	public List<Book> getBookList(){
+
+		Statistics statistics = sessionFactory.getStatistics();
+		statistics.clear();
+		statistics.setStatisticsEnabled(true);
 
 		// открыть сессию - для манипуляции с персист. объектами
 		Session session = sessionFactory.openSession();
@@ -44,6 +49,9 @@ public class BookHelper {
 		List<Book> bookList = query.getResultList();
 
 		session.close();
+
+		statistics.logSummary();
+		System.out.println(statistics.getQueries());
 
 		return bookList;
 
