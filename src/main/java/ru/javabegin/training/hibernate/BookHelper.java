@@ -3,6 +3,7 @@ package ru.javabegin.training.hibernate;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.stat.Statistics;
 import ru.javabegin.training.hibernate.entity.Book;
 
 import javax.persistence.Query;
@@ -14,10 +15,14 @@ import java.util.List;
 
 public class BookHelper {
 
+	private static Statistics stat;
 	private SessionFactory sessionFactory;
 
 	public BookHelper() {
 		sessionFactory = HibernateUtil.getSessionFactory();
+		stat = sessionFactory.getStatistics();
+		stat.clear();
+		stat.setStatisticsEnabled(true);
 	}
 
 	public List<Book> getBookList(){
@@ -49,13 +54,13 @@ public class BookHelper {
 
 
 
-		Book b1 = session.get(Book.class, 2L);
+//		Book b1 = session.get(Book.class, 2L);
+//
+//		session.evict(b1); // удаляем объект из кеша 1го уровня
+//
+//		Book b2 = session.get(Book.class, 2L);
 
-		session.evict(b1); // удаляем объект из кеша 1го уровня
-
-		Book b2 = session.get(Book.class, 2L);
-
-
+		printStat();
 
 		session.close();
 
@@ -64,6 +69,13 @@ public class BookHelper {
 
 		return bookList;
 
+	}
+
+	private static void printStat() {
+		System.out.println("Выполнено запросов в БД: "+stat.getQueryExecutionCount());
+		System.out.println("Найдено в кэше: "+stat.getSecondLevelCacheHitCount());
+		System.out.println("Добавлено в кэш: "+stat.getSecondLevelCachePutCount());
+		stat.clear();
 	}
 
 }

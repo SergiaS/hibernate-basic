@@ -20,6 +20,8 @@ dependencies {
     compile('mysql:mysql-connector-java:8.0.21')
     compile('org.projectlombok:lombok:+')
     annotationProcessor('org.projectlombok:lombok:+')
+    compile('org.hibernate:hibernate-ehcache:5.4.19.Final')
+
 
 //    annotationProcessor('org.hibernate:hibernate-jpamodelgen:+')
 

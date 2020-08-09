@@ -1,9 +1,8 @@
 package ru.javabegin.training.hibernate.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -14,6 +13,7 @@ import javax.persistence.ManyToOne;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "ru.javabegin.training.hibernate.entity.Book")
 public class Book extends BaseEntity {
 
 	@ManyToOne
