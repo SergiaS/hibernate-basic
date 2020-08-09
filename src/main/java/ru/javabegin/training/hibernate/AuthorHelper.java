@@ -36,6 +36,7 @@ public class AuthorHelper {
 		CriteriaQuery cq = cb.createQuery(Author.class);
 
 		Root<Author> root = cq.from(Author.class);// первостепенный, корневой entity (в sql запросе - from)
+		root.fetch("books", JoinType.INNER);
 
 //		Selection[] selection = {root.get("id"), root.get("name")}; // выборка полей, в классе Author должен быть конструктор с этими параметрами
 
@@ -54,6 +55,10 @@ public class AuthorHelper {
 
 
 		List<Author> authorList = query.getResultList();
+
+//		Author a1 = session.get(Author.class, 2L);
+//		session.evict(a1); // удаляем объект из кеша 1го уровня
+//		Author a2 = session.get(Author.class, 2L);
 
 
 		session.close();
@@ -171,7 +176,7 @@ public class AuthorHelper {
 
 		Author author = session.get(Author.class, id);
 
-		printStat();
+//		printStat();
 
 		return author;
 	}
